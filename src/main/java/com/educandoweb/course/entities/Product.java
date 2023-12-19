@@ -1,6 +1,5 @@
 package com.educandoweb.course.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -21,9 +20,10 @@ public class Product implements Serializable {
     private String imgUrl;
 
     // garante que não inicia nula e sim vazia
-    @ManyToOne
-    @JsonIgnore
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
